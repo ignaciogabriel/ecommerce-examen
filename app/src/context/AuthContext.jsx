@@ -105,6 +105,8 @@ export const AuthProvider = ({ children }) => {
         console.log(error.response);
         console.log(error.response?.data);
 
+         console.log("ME ESTOY DESLOGUEANDO");
+
         logout();
       } finally {
         setIsLoading(false);

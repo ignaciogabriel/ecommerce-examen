@@ -46,9 +46,11 @@ function App() {
         <Route
           path="/admin/configuracion"
           element={
-            <RoleRoute allowedRoles={["superadmin"]}>
-              <ConfiguracionAdmin />
-            </RoleRoute>
+            <AdminRoute>
+              <RoleRoute allowedRoles={["superadmin"]}>
+                <ConfiguracionAdmin />
+              </RoleRoute>
+            </AdminRoute>
           }
         />
 
