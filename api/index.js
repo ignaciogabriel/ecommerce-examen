@@ -1,3 +1,4 @@
+// api/src/index.js
 import app from './src/app.js';
 import { sequelize, testConnection } from './src/config/database.js';
 
@@ -8,7 +9,7 @@ const startServer = async () => {
     await testConnection();
 
     // Paso B: Crear tablas (si no existen)
-    await sequelize.sync({ force: true });
+    await sequelize.sync({ Alter: true });
     console.log('✅ Tablas sincronizadas');
 
     // Paso C: Abrir el puerto

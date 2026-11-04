@@ -4,7 +4,7 @@ import { AuthContext } from "../context/AuthContext";
 
 export default function ConfiguracionAdmin() {
 
-    console.log("CONFIGURACION ADMIN RENDERIZADA");
+    
   const { user } = useContext(AuthContext);
 
   if (!user) {

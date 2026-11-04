@@ -9,14 +9,24 @@ import ClientRoute from "./components/ClientRoute";
 import AdminRoute from "./components/AdminRoute";
 import RoleRoute from "./components/RoleRoute";
 import ConfiguracionAdmin from "./pages/ConfiguracionAdmin";
+import ProductsPage from "./pages/ProductsPage";
+import Header from "./components/Header";
 
 
 function App() {
   return (
     <BrowserRouter>
+      
+      <Header />
+
       <Routes>
         {/* Página pública */}
         <Route path="/" element={<Home />} />
+
+        <Route
+  path="/products"
+  element={<ProductsPage />}
+/>
 
         {/* Login Cliente */}
         <Route path="/login" element={<LoginClient />} />

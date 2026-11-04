@@ -1,5 +1,12 @@
+//api/src/controllers/adminController.js
+
 import { Admin } from "../models/admin.js";
-import { hashPassword, comparePassword, generateToken } from "../utils/auth.js";
+import {
+  hashPassword,
+  comparePassword,
+  generateToken,
+  generateRefreshToken
+} from "../utils/auth.js";
 
 
 //login de administrador
@@ -11,18 +18,29 @@ export const adminLogin = async (req, res) => {
   const valid = await comparePassword(password, admin.password);
   if (!valid) return res.status(401).json({ msg: "Credenciales inválidas" });
 
-  const token = generateToken({ id: admin.id, type: "admin", rol: admin.rol });
-  res.json({ 
-    token,
-    admin: {
+const payload = {
+  id: admin.id,
+  type: "admin",
+  rol: admin.rol
+};
+
+const token = generateToken(payload);
+
+const refreshToken = generateRefreshToken(
+  payload
+);
+
+res.json({
+  token,
+  refreshToken,
+  admin: {
     id: admin.id,
     nombre: admin.nombre,
     email: admin.email,
     rol: admin.rol
   }
-   });
-};
-
+});
+}
 
 //registrar un administrador por rol
 export const adminRegister = async (req, res) => {

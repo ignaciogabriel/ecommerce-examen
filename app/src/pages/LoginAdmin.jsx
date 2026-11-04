@@ -12,6 +12,25 @@ export default function LoginAdmin() {
 const handleSubmit = async (e) => {
   e.preventDefault();
 
+const currentUserType =
+  localStorage.getItem("userType");
+
+if (
+  currentUserType &&
+  currentUserType !== "admin"
+) {
+
+  const continuar = window.confirm(
+    "Existe una sesión de cliente activa. ¿Desea reemplazarla?"
+  );
+
+  if (!continuar) {
+    return;
+  }
+
+  localStorage.clear();
+}
+
   const success = await loginAdmin(
     email,
     password

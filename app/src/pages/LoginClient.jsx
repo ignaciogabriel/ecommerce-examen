@@ -11,6 +11,26 @@ export default function LoginClient() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const currentUserType =
+  localStorage.getItem("userType");
+
+if (
+  currentUserType &&
+  currentUserType !== "client"
+) {
+
+  const continuar = window.confirm(
+    "Existe una sesión de administrador activa. ¿Desea reemplazarla?"
+  );
+
+  if (!continuar) {
+    return;
+  }
+
+  localStorage.clear();
+}
+
     await loginClient(email, password);
     navigate("/cliente/dashboard"); // redirige al dashboard del cliente
   };

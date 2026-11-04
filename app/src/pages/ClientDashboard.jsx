@@ -22,12 +22,7 @@ export default function ClientDashboard() {
         <p className="mb-2"><strong>Dirección:</strong> {user.direccion}</p>
         <p className="mb-2"><strong>Teléfono:</strong> {user.telefono}</p>
       </div>
-      <button
-        onClick={logout}
-        className="mt-6 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-      >
-        Cerrar sesión
-      </button>
+   
     </div>
   );
 }
