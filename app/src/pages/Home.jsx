@@ -159,7 +159,7 @@ export default function Home() {
             <h3 className="font-bold mb-3">
               Enlaces
             </h3>
-            <p>Productos</p>
+            <Link to="/products">Productos</Link>
             <p>Categorías</p>
             <p>Contacto</p>
           </div>
