@@ -20,9 +20,16 @@ export const AuthProvider = ({ children }) => {
       );
 
       setToken(res.data.token);
+      setUser(res.data.client);
       setUserType("client");
 
       localStorage.setItem("token", res.data.token);
+
+      localStorage.setItem(
+          "user",
+          JSON.stringify(res.data.client)
+        );
+        
       localStorage.setItem("userType", "client");
 
       return true;

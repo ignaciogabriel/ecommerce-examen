@@ -284,7 +284,7 @@ export default function AdminDashboard() {
       {user.rol === "editor" && (
         <div className="bg-white shadow-md rounded p-6 w-96 mb-6">
           <h2 className="text-xl font-semibold mb-4">Gestión de Productos</h2>
-          <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+          <button onClick={() => setActiveSection("productos")} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
             Editar productos
           </button>
         </div>
@@ -356,6 +356,7 @@ export default function AdminDashboard() {
     Gestión de Productos
   </h2>
 
+{user.rol !== "viewer" && (
   <button
     onClick={() => setShowForm(!showForm)}
     className="
@@ -372,9 +373,10 @@ export default function AdminDashboard() {
   >
     +
   </button>
+)}
 
 </div>
-  {showForm && (
+  {user.rol !== "viewer" && showForm && (
 
   <form
     onSubmit={
@@ -536,7 +538,9 @@ export default function AdminDashboard() {
         <th className="p-3">Categoría</th>
         <th className="p-3">Precio</th>
         <th className="p-3">Stock</th>
-        <th className="p-3">Acciones</th>
+        {user.rol !== "viewer" && (
+          <th>Acciones</th>
+        )}
       </tr>
 
     </thead>
@@ -576,44 +580,47 @@ export default function AdminDashboard() {
             {product.stock}
           </td>
 
+{user.rol !== "viewer" && (
           <td className="p-3">
 
-  <div className="flex gap-3">
+            <div className="flex gap-3">
+                
+              <button
+                onClick={() => {
+                
+                  setShowForm(true);
+                
+                  setEditingProduct(product.id);
+                
+                  setNewProduct({
+                    name: product.name,
+                    description: product.description,
+                    price: product.price,
+                    stock: product.stock,
+                    category: product.category,
+                    imageUrl: product.imageUrl
+                  });
+                
+                }}
+                className="text-yellow-500 hover:text-yellow-600"
+                title="Editar"
+              >
+                <Pencil size={18} />
+              </button>
+              
+              <button
+                onClick={() => deleteProduct(product.id)}
+                className="text-red-500 hover:text-red-600"
+                title="Eliminar"
+              >
+                <Trash2 size={18} />
+              </button>
+              
+            </div>
+              
+          </td>
 
-    <button
-      onClick={() => {
-
-        setShowForm(true);
-      
-        setEditingProduct(product.id);
-      
-        setNewProduct({
-          name: product.name,
-          description: product.description,
-          price: product.price,
-          stock: product.stock,
-          category: product.category,
-          imageUrl: product.imageUrl
-        });
-      
-      }}
-      className="text-yellow-500 hover:text-yellow-600"
-      title="Editar"
-    >
-      <Pencil size={18} />
-    </button>
-
-    <button
-      onClick={() => deleteProduct(product.id)}
-      className="text-red-500 hover:text-red-600"
-      title="Eliminar"
-    >
-      <Trash2 size={18} />
-    </button>
-
-  </div>
-
-</td>
+          )}
 
         </tr>
 

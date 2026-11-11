@@ -9,8 +9,22 @@ export const clientLogin = async (req, res) => {
   const valid = await comparePassword(password, client.password);
   if (!valid) return res.status(401).json({ msg: "Credenciales inválidas" });
 
-  const token = generateToken({ id: client.id, type: "client" });
-  res.json({ token });
+  const token = generateToken({
+      id: client.id,
+      type: "client"
+    });
+    
+    res.json({
+      token,
+      client: {
+        id: client.id,
+        nombre: client.nombre,
+        email: client.email,
+        direccion: client.direccion,
+        telefono: client.telefono
+      }
+    });
+
 };
 
 export const clientRegister = async (req, res) => {
