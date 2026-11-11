@@ -1,9 +1,48 @@
 // src/pages/Home.jsx
 
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Home() {
+  
+  const [products, setProducts] = useState([]);
 
+    useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const featuredProducts = [...products]
+  .reverse()
+  .slice(0, 4);
+
+  const categories = [
+    ...new Set(
+      products.map(
+        (product) => product.category
+      )
+    )
+  ];
+
+
+
+  const fetchProducts = async () => {
+
+    try {
+
+      const res = await axios.get(
+        "http://localhost:3000/api/products"
+      );
+
+      setProducts(res.data.products);
+
+    } catch (error) {
+
+      console.error(error);
+
+    }
+
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-violet-50 to-white">
@@ -56,21 +95,17 @@ export default function Home() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
-          {[
-            "Notebooks",
-            "Periféricos",
-            "Monitores",
-            "Audio"
-          ].map((cat) => (
+          {categories.map((cat) => (
 
-            <div
+            <Link
               key={cat}
-              className="bg-white p-6 rounded-xl shadow hover:scale-105 transition-all"
+              to={`/products?category=${encodeURIComponent(cat)}`}
+              className="bg-white p-6 rounded-xl shadow hover:scale-105 transition-all block"
             >
-              <h3 className="text-xl font-semibold">
+              <h3 className="text-xl font-semibold text-center">
                 {cat}
               </h3>
-            </div>
+            </Link>
 
           ))}
 
@@ -87,46 +122,27 @@ export default function Home() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
-          {[
-            {
-              nombre: "Notebook Lenovo",
-              precio: "$1200"
-            },
-            {
-              nombre: "Mouse Logitech",
-              precio: "$45"
-            },
-            {
-              nombre: "Monitor Samsung",
-              precio: "$280"
-            },
-            {
-              nombre: "Auriculares HyperX",
-              precio: "$90"
-            }
-          ].map((product) => (
+          {featuredProducts.map((product) => (
 
             <div
-              key={product.nombre}
+              key={product.name}
               className="bg-white rounded-xl shadow overflow-hidden"
             >
 
-              <div className="aspect-square bg-violet-100 flex items-center justify-center">
-
-                <span className="bg-red-500 text-white px-2 py-1 rounded">
-                  -20%
-                </span>
-
-              </div>
+              <img
+                src={product.imageUrl}
+                alt={product.name}
+                className="w-full h-52 object-cover"
+              />
 
               <div className="p-4">
 
                 <h3 className="font-semibold mb-2">
-                  {product.nombre}
+                  {product.name}
                 </h3>
 
                 <p className="text-violet-700 font-bold mb-3">
-                  {product.precio}
+                  {product.price}
                 </p>
 
                 <button className="bg-violet-600 text-white px-4 py-2 rounded w-full">

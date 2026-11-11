@@ -55,7 +55,7 @@ export default function Header() {
           <div className="hidden md:flex gap-4">
             <Link to="/">Inicio</Link>
             <Link to="/products">Productos</Link>
-            <Link to="/login">Cliente</Link>
+            <Link to="/login">Login</Link>
             
           </div>
         </div>

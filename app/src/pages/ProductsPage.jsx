@@ -1,20 +1,32 @@
 // app/src/pages/ProductsPage.jsx
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useSearchParams } from "react-router-dom";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
 
   const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("");
+  const [searchParams] = useSearchParams();
+  const [category, setCategory] = useState(
+    searchParams.get("category") || ""
+  );
   const [sortBy, setSortBy] = useState("name");
   const [order, setOrder] = useState("ASC");
 
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
+  
+
   useEffect(() => {
     fetchProducts();
+
+     window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
   }, [search, category, sortBy, order, page]);
 
   const fetchProducts = async () => {
@@ -24,7 +36,7 @@ export default function ProductsPage() {
         {
           params: {
             page,
-            limit: 5,
+            limit: 9,
             search,
             category,
             sortBy,
@@ -97,47 +109,50 @@ export default function ProductsPage() {
 
         </div>
 
-        <table className="w-full bg-white border border-violet-200 shadow-md rounded-lg overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-          <thead className="bg-violet-700 text-white">
+  {products.map((product) => (
 
-            <tr>
-              <th className="p-3">Nombre</th>
-              <th className="p-3">Categoría</th>
-              <th className="p-3">Precio</th>
-              <th className="p-3">Stock</th>
-            </tr>
+    <div
+      key={product.id}
+      className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition"
+    >
 
-          </thead>
+      <img
+        src={product.imageUrl}
+        alt={product.name}
+        className="w-full h-52 object-cover"
+      />
 
-          <tbody>
+      <div className="p-4">
 
-            {products.map((product) => (
-              <tr
-                key={product.id}
-                className="hover:bg-violet-50 transition"
-              >
-                <td className="border p-3">
-                  {product.name}
-                </td>
+        <h3 className="text-lg font-bold mb-2">
+          {product.name}
+        </h3>
 
-                <td className="border p-3">
-                  {product.category}
-                </td>
+        <p className="text-gray-500 mb-2">
+          {product.category}
+        </p>
 
-                <td className="border p-3">
-                  ${product.price}
-                </td>
+        <p className="text-violet-700 font-bold text-xl mb-2">
+          ${product.price}
+        </p>
 
-                <td className="border p-3">
-                  {product.stock}
-                </td>
-              </tr>
-            ))}
+        <p className="text-sm text-gray-600 mb-4">
+          Stock disponible: {product.stock}
+        </p>
 
-          </tbody>
+        <button className="w-full bg-violet-600 text-white py-2 rounded hover:bg-violet-700">
+          Comprar
+        </button>
 
-        </table>
+      </div>
+
+    </div>
+
+  ))}
+
+</div>
 
         <div className="flex gap-4 justify-center items-center mt-6">
 

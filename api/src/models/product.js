@@ -32,5 +32,10 @@ export const Product = sequelize.define("Product", {
   category: {
     type: DataTypes.STRING,
     allowNull: false
-  }
+  },
+  imageUrl: {
+  type: DataTypes.STRING,
+  allowNull: true
+}
+
 });

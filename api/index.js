@@ -9,7 +9,7 @@ const startServer = async () => {
     await testConnection();
 
     // Paso B: Crear tablas (si no existen)
-    await sequelize.sync({ Alter: true });
+    await sequelize.sync({ alter: true });
     console.log('✅ Tablas sincronizadas');
 
     // Paso C: Abrir el puerto

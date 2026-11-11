@@ -7,11 +7,11 @@ export const getProducts = async (req, res) => {
   try {
     const {
       page = 1,
-      limit = 10,
+      limit = 100,
       search = "",
       category,
-      sortBy = "id",
-      order = "ASC"
+      sortBy = "createdAt",
+      order = "DESC"
     } = req.query;
 
     const offset = (page - 1) * limit;
