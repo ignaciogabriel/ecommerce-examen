@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 
 export default function Header() {
 
-      const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const {
     user,

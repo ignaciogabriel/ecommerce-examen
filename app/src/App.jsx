@@ -11,6 +11,7 @@ import RoleRoute from "./components/RoleRoute";
 import ConfiguracionAdmin from "./pages/ConfiguracionAdmin";
 import ProductsPage from "./pages/ProductsPage";
 import Header from "./components/Header";
+import RegisterClient from "./pages/RegisterClient";
 
 
 function App() {
@@ -27,6 +28,13 @@ function App() {
           path="/products"
           element={<ProductsPage />}
         />
+
+        <Route
+          path="/register"
+          element={<RegisterClient />}
+        />
+
+        
 
         {/* Login Cliente */}
         <Route path="/login" element={<LoginClient />} />

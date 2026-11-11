@@ -1,4 +1,5 @@
 // src/pages/LoginClient.jsx
+import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -62,6 +63,19 @@ if (
         >
           Ingresar
         </button>
+
+        <p className="text-center mt-4">
+
+          ¿No tienes cuenta?{" "}
+
+          <Link
+            to="/register"
+            className="text-violet-600 font-semibold"
+          >
+            Regístrate aquí
+          </Link>
+
+        </p>
       </form>
     </div>
   );

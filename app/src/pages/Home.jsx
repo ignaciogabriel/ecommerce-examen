@@ -116,9 +116,28 @@ export default function Home() {
       {/* Productos */}
       <section className="container mx-auto px-6 py-12">
 
-        <h2 className="text-3xl font-bold text-violet-700 mb-6">
-          Productos destacados
-        </h2>
+        <div className="flex gap-4 items-center mb-6">
+
+          <h2 className="text-3xl font-bold text-violet-700">
+            Productos destacados
+          </h2>
+
+          <Link
+            to="/products"
+            className="
+              bg-violet-600
+              text-white
+              px-4
+              py-2
+              rounded-lg
+              hover:bg-violet-700
+              transition
+            "
+          >
+            Ver más →
+          </Link>
+
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
